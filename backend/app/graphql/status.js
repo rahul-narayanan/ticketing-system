@@ -1,8 +1,7 @@
-import { gql } from 'apollo-server-express'
 import db from "../database.js";
 
-export const typeDefs = gql`
-    extend type Query {
+export const statusTypeDefs = `
+    type Query {
         allStatus: [Status]
         status(id: ID!): Status
     }
@@ -13,10 +12,10 @@ export const typeDefs = gql`
     }
 `;
 
-export const resolvers = {
+export const statusResolvers = {
     Query: {
         allStatus: async () => db.status.findAll(),
         status: async (obj, args, context, info) =>
-            db.status.findByPk(args.id),
-    },
-}
+            db.status.findByPk(args.id)
+    }
+};

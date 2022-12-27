@@ -1,8 +1,7 @@
-import { gql } from 'apollo-server-express'
 import db from "../database.js";
 
-export const typeDefs = gql`
-    extend type Query {
+export const prioritiesTypeDefs = `
+    type Query {
         priorities: [Priority]
         priority(id: ID!): Priority
     }
@@ -13,10 +12,9 @@ export const typeDefs = gql`
     }
 `;
 
-export const resolvers = {
+export const prioritiesResolvers = {
     Query: {
         priorities: async () => db.priorities.findAll(),
-        priority: async (obj, args, context, info) =>
-            db.priorities.findByPk(args.id),
-    },
-}
+        priority: async (obj, args, context, info) => db.priorities.findByPk(args.id)
+    }
+};
